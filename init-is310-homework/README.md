@@ -6,3 +6,6 @@
 
 2. VSC 
 (images/VSC Screenshot.png)
+
+Discord: lhayedimarucut
+Hypothesis: lhayedimarucut
