@@ -1,0 +1,2 @@
+Hmm.. the door lead nowhere. Try a door greater than one and less than 
+four
