@@ -14,3 +14,8 @@ java due to the .js in the files. It also is using css as it is telling the prog
 ![wikipedia2](images/wikipedia_2.png)
 ![css](images/css_screenshot.png)
 
+For the amount of people who created the website, I can't find the 
+specific number of people. However, the overall page for wikipedia is 
+powered through MediaWiki where volunteers and staff help contribute to 
+the coding of the page. From their git repositiory there are 661 
+contributors to the page.
