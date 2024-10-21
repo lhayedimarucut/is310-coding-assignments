@@ -9,27 +9,25 @@ def get_character_relations(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
 
-    # Initialize a list for relations
     relations = []
 
-    # Extract the Relations section
     relations_section = soup.find('span', id='Relations')
     if relations_section:
         relations_content = relations_section.find_parent('h2').find_next_sibling()
         while relations_content and relations_content.name != 'h2':
             if relations_content.name in ['ul', 'ol']:
                 for relation_item in relations_content.find_all('li'):
-                    # Get the full text of the relation
+                    
                     relation_text = relation_item.get_text()
                     if ' - ' in relation_text:
-                        # Split at the first dash for name and description
+                        
                         relation_name, relation_description = relation_text.split(' - ', 1)
                     elif ':' in relation_text:
-                        # Split at the first colon for name and description
+                        
                         relation_name, relation_description = relation_text.split(':', 1)
                     else:
-                        relation_name = relation_text.strip()  # No separator found
-                        relation_description = "No description available"  # No description
+                        relation_name = relation_text.strip() 
+                        relation_description = "No description available"
 
                     relations.append({
                         "name": relation_name.strip(),
@@ -43,15 +41,14 @@ def get_character_relations(url):
 def display_character_relations(url, character_name):
     console.print(f"Processing relations for {character_name}...")
 
-    # Fetch the character relations
+
     relations = get_character_relations(url)
 
-    # Display Relations in a table
     relations_table = Table(title=f"{character_name} - Relations")
     relations_table.add_column("Relation Name", style="cyan")
     relations_table.add_column("Description", style="magenta")
 
-    if relations:  # Check if relations list is not empty
+    if relations: 
         for relation in relations:
             relations_table.add_row(relation['name'], relation['description'])
     else:
@@ -59,10 +56,8 @@ def display_character_relations(url, character_name):
 
     console.print(relations_table)
 
-# URL of the Strawberry Shortcake character page
 character_url = "https://strawberryshortcakeberrybitty.fandom.com/wiki/Strawberry_Shortcake"
 character_name = "Strawberry Shortcake"
 
-# Display the relations in a table format
 display_character_relations(character_url, character_name)
 
