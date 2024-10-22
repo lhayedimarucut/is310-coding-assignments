@@ -2,6 +2,8 @@ import requests
 from bs4 import BeautifulSoup
 from rich.console import Console
 from rich.table import Table
+import json
+import os
 
 console = Console()
 
@@ -26,8 +28,8 @@ def get_character_relations(url):
                         
                         relation_name, relation_description = relation_text.split(':', 1)
                     else:
-                        relation_name = relation_text.strip() 
-                        relation_description = "No description available"
+                        relation_name = relation_text.strip()  
+                        relation_description = "No description available"  
 
                     relations.append({
                         "name": relation_name.strip(),
@@ -41,9 +43,7 @@ def get_character_relations(url):
 def display_character_relations(url, character_name):
     console.print(f"Processing relations for {character_name}...")
 
-
     relations = get_character_relations(url)
-
     relations_table = Table(title=f"{character_name} - Relations")
     relations_table.add_column("Relation Name", style="cyan")
     relations_table.add_column("Description", style="magenta")
@@ -56,8 +56,16 @@ def display_character_relations(url, character_name):
 
     console.print(relations_table)
 
+    file_name = f"{character_name.replace(' ', '_')}_relations.json"
+    file_path = os.path.join(os.getcwd(), file_name)
+    
+    with open(file_path, 'w') as json_file:
+        json.dump(relations, json_file, indent=4)
+    
+    console.print(f'Data Saved as {file_name}')
+
+
 character_url = "https://strawberryshortcakeberrybitty.fandom.com/wiki/Strawberry_Shortcake"
 character_name = "Strawberry Shortcake"
 
 display_character_relations(character_url, character_name)
-
